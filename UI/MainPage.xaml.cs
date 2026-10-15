@@ -1,24 +1,23 @@
-﻿
+﻿using UI.ViewModels;
+
 
 namespace UI
 {
     public partial class MainPage : ContentPage
     {
-        List<Element> ElementCategories = new();
-       
-        public MainPage()
+        private readonly MainViewModel _viewModel;
+
+        public MainPage(MainViewModel viewModel)
         {
-
             InitializeComponent();
+            _viewModel = viewModel;
+            BindingContext = viewModel;
         }
-        
-        
 
-
-    }
-    public class Element
-    {
-        public string? Title { get; set; }
-        public string? Text { get; set; }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _viewModel.LoadAsync();
+        }
     }
 }
